@@ -1,4 +1,6 @@
-# BLACK HOLE: INTO SPACETIME
+# Black Hole Horizon
+
+[English](README.md) | [简体中文](README.zh-CN.md)
 
 Explore a black hole. Experience relativity.
 
@@ -39,10 +41,66 @@ npm run preview
 
 ## Scientific Notes
 
-- Distances are expressed in gravitational radii, `r_g = GM/c²`.
-- The Schwarzschild event horizon is at `2 r_g`; the photon sphere is at `3 r_g`.
-- The disk is procedural and illustrates temperature, density, orbital motion,
-  Doppler beaming, and gravitational redshift trends.
-- Proper-time readout uses a simplified static-observer comparison. It is not a
-  full freely falling worldline calculation.
-- Press `G` to compare straight light with gravitationally curved light.
+### 1. Distances use gravitational radii
+
+The project measures distance in gravitational radii, `r_g = GM/c²`. For a
+black hole, `r_g` bundles the key quantities—mass and the strength of gravity—into
+one natural length unit, so the same geometric rules can be described without
+writing every formula in metres.
+
+In the visualization, one unit of world space is one `r_g`. The HUD therefore
+reads distances such as `42.00 r_g` rather than kilometres or light-seconds.
+Changing the displayed solar mass does not require rebuilding the geometry; it
+only changes how the same normalized scene would be scaled physically.
+
+### 2. Event horizon and photon sphere
+
+This is a Schwarzschild black hole: non-rotating and spherically symmetric. Its
+event horizon lies at `2 r_g`. In simple terms, once light crosses this boundary,
+there are no outward paths back to the distant universe, so the shader treats
+crossing it as capture and leaves that direction black.
+
+At `3 r_g` is the photon sphere, where light can temporarily orbit the black
+hole. Nearby light paths can bend around it one or more times before escaping.
+The GPU ray integrator follows this behavior, producing the dark shadow plus a
+thin, bright photon ring near its edge.
+
+### 3. Procedural accretion disk
+
+An accretion disk is made of matter spiraling around the black hole. Material
+closer in generally moves faster and becomes hotter, while turbulence creates
+filaments and varying density. The renderer does not simulate a complete plasma
+flow; instead, it procedurally combines these trends into a visible disk.
+
+The disk spans `6 r_g` to `24 r_g` by default. Its shader changes color with a
+temperature profile that falls outward, modulates brightness and structure with
+turbulent density, and rotates material on an orbit-like angular profile. It
+also applies two relativistic trends:
+
+- **Doppler beaming and color shift:** material moving toward the camera appears
+  brighter and bluer; material moving away appears dimmer and redder.
+- **Gravitational redshift:** light from deeper in the gravitational well is
+  shifted and reduced in brightness, making the innermost visible material look
+  different from the cooler outer disk.
+
+### 4. Coordinate time and proper time
+
+General relativity predicts that clocks deeper in a gravitational field run more
+slowly relative to far-away coordinate time. The experience therefore shows two
+clocks: coordinate time and proper time.
+
+For the readout, proper time is advanced using a simplified static-observer
+factor at the camera's current radius. This communicates gravitational time
+dilation, but it is not a full freely falling worldline calculation and does not
+model the flight path's velocity, acceleration, or exact relativistic motion.
+
+### 5. Gravity on/off light experiment
+
+Massive objects curve spacetime, and light follows the curved paths through it.
+This is why the black hole can act like a lens, bending background starlight and
+light from the disk around the horizon.
+
+Pressing `G` toggles gravitational curvature. With gravity off, rays continue
+nearly straight, so lensing, the shadow boundary, and photon-ring structure lose
+their relativistic appearance. With gravity on, the same viewpoint integrates
+curved photon paths, making the comparison directly visible.
