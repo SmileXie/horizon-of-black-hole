@@ -27,6 +27,7 @@ uniform mat4 uInverseProjectionMatrix;
 
 const float MAX_STEPS = 144.0;
 const float ESCAPE_RADIUS = 90.0;
+const float DISK_ROTATION_SPEED_MULTIPLIER = 1.4;
 
 ${STAR_FIELD_GLSL}
 
@@ -60,7 +61,7 @@ vec4 sampleAccretionDisk(vec3 hitPosition, vec3 rayDirection) {
   }
 
   float angle = atan(hitPosition.z, hitPosition.x);
-  float angularVelocity = 3.2 / pow(radius, 1.5);
+  float angularVelocity = DISK_ROTATION_SPEED_MULTIPLIER * 3.2 / pow(radius, 1.5);
   float materialAngle = angle - uTime * angularVelocity;
   vec3 materialPosition = vec3(
     cos(materialAngle) * radius,

@@ -4,6 +4,7 @@ import { QUALITY_PRESETS, createBlackHoleState } from "../src/physics/blackHole"
 import { schwarzschildPhotonAcceleration } from "../src/physics/geodesic";
 import { clampNavigationSpeed } from "../src/camera/ExplorerCamera";
 import { KNOWLEDGE_RECORDS } from "../src/education/KnowledgeDatabase";
+import { BLACK_HOLE_FRAGMENT_SHADER } from "../src/rendering/BlackHoleShader";
 
 describe("black hole state", () => {
   it("starts outside the disk in the Schwarzschild model", () => {
@@ -46,6 +47,17 @@ describe("Schwarzschild photon acceleration", () => {
     expect(acceleration.x).toBeCloseTo(-3 / 10 ** 2, 12);
     expect(Math.abs(acceleration.y)).toBeLessThan(1e-12);
     expect(Math.abs(acceleration.z)).toBeLessThan(1e-12);
+  });
+});
+
+describe("accretion disk rendering", () => {
+  it("rotates disk material slightly faster than the physical baseline", () => {
+    expect(BLACK_HOLE_FRAGMENT_SHADER).toMatch(
+      /const float DISK_ROTATION_SPEED_MULTIPLIER = 1\.4;/,
+    );
+    expect(BLACK_HOLE_FRAGMENT_SHADER).toMatch(
+      /float angularVelocity = DISK_ROTATION_SPEED_MULTIPLIER \* 3\.2 \/ pow\(radius, 1\.5\);/,
+    );
   });
 });
 
