@@ -8,10 +8,6 @@ export interface HudReadout {
   coordinateTime: number;
   properTime: number;
   quality: QualityLevel;
-  fps: number;
-  raySteps: number;
-  renderScale: number;
-  debug: boolean;
 }
 
 export class ScientificHUD {
@@ -22,9 +18,6 @@ export class ScientificHUD {
   private readonly coordinate: HTMLElement;
   private readonly proper: HTMLElement;
   private readonly quality: HTMLElement;
-  private readonly debugPanel: HTMLElement;
-  private readonly fps: HTMLElement;
-  private readonly renderInfo: HTMLElement;
 
   constructor(private readonly root: HTMLElement) {
     this.root.insertAdjacentHTML("beforeend", `
@@ -55,16 +48,10 @@ export class ScientificHUD {
           <button data-quality="ULTRA">ULTRA</button>
         </div>
         <div class="control-row">
-          <button data-debug>DEBUG F1</button>
           <button data-reset>RESET R</button>
           <button data-help>HELP H</button>
         </div>
       </section>
-      <div id="debug-panel" class="debug-panel" hidden>
-        <small>Diagnostic</small>
-        <div>FPS <span id="hud-fps">--</span></div>
-        <div>RENDER <span id="hud-render">--</span></div>
-      </div>
     `);
 
     this.distance = this.require("#hud-distance");
@@ -74,9 +61,6 @@ export class ScientificHUD {
     this.coordinate = this.require("#hud-coordinate");
     this.proper = this.require("#hud-proper");
     this.quality = this.require("#hud-quality");
-    this.debugPanel = this.require("#debug-panel");
-    this.fps = this.require("#hud-fps");
-    this.renderInfo = this.require("#hud-render");
 
     this.root.querySelector<HTMLButtonElement>("[data-help]")?.addEventListener("click", () => {
       window.dispatchEvent(new CustomEvent("togglehelp"));
@@ -91,12 +75,6 @@ export class ScientificHUD {
     this.coordinate.textContent = formatTime(readout.coordinateTime);
     this.proper.textContent = formatTime(readout.properTime);
     this.quality.textContent = readout.quality;
-
-    this.debugPanel.hidden = !readout.debug;
-    if (readout.debug) {
-      this.fps.textContent = readout.fps.toFixed(0);
-      this.renderInfo.textContent = `${readout.raySteps} steps · ${Math.round(readout.renderScale * 100)}%`;
-    }
   }
 
   private require(selector: string) {

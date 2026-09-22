@@ -45,8 +45,6 @@ try {
   const hud = new ScientificHUD(app);
   const discovery = new DiscoverySystem(app, KNOWLEDGE_RECORDS);
   let quality: QualityLevel = initialQuality;
-  let debug = false;
-  let fps = 60;
   let elapsed = 0;
 
   const resetExperience = () => {
@@ -57,9 +55,6 @@ try {
     onQuality: (nextQuality) => {
       quality = nextQuality;
       scene.setQuality(getQuality(nextQuality));
-    },
-    onDebugToggle: () => {
-      debug = experimentManager.debugEnabled;
     },
     onReset: resetExperience,
   });
@@ -73,7 +68,7 @@ try {
 
   const hint = document.createElement("div");
   hint.className = "hint";
-  hint.innerHTML = `CLICK TO FLY · W A S D MOVE · Q E VERTICAL · WHEEL SPEED · F1 DIAGNOSTIC`;
+  hint.innerHTML = `CLICK TO FLY · W A S D MOVE · Q E VERTICAL · WHEEL SPEED`;
   app.appendChild(hint);
 
   const helpPanel = document.createElement("section");
@@ -85,8 +80,6 @@ try {
     <p>Click the universe to enter flight mode. Use <strong>W A S D</strong> to translate,
     <strong>Q E</strong> to descend or climb, and the mouse to look. The mouse wheel scales
     flight speed.</p>
-    <h2>Diagnostics</h2>
-    <p>Press <strong>F1</strong> for diagnostics and <strong>R</strong> to reset the camera.</p>
     <h2>Scientific note</h2>
     <p>The ray tracer uses Schwarzschild null-geodesic integration in gravitational-radius units.
     Proper-time readout applies a simplified static-observer comparison; it does not model the
@@ -121,7 +114,6 @@ try {
   function frame() {
     const deltaTime = Math.min(clock.getDelta(), 0.05);
     elapsed += deltaTime;
-    fps += ((1 / Math.max(deltaTime, 0.0001)) - fps) * 0.08;
 
     explorer.update(deltaTime);
     state.cameraPosition.copy(camera.position);
@@ -145,10 +137,6 @@ try {
       coordinateTime: state.coordinateTime,
       properTime: state.properTime,
       quality,
-      fps,
-      raySteps: getQuality(quality).raySteps,
-      renderScale: getQuality(quality).renderScale,
-      debug,
     });
 
     requestAnimationFrame(frame);

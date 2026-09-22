@@ -33,7 +33,6 @@ npm run preview
 | Vertical movement | `Q` / `E` |
 | Look | Mouse while pointer-locked |
 | Flight speed | Mouse wheel |
-| Diagnostic HUD | `F1` |
 | Help | `H` |
 | Reset view | `R` |
 

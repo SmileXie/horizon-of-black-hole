@@ -284,17 +284,3 @@ body {
 .help-panel p strong {
   color: var(--accent);
 }
-
-.debug-panel {
-  position: absolute;
-  top: 190px;
-  right: 28px;
-  width: 268px;
-  padding: 14px 20px;
-  border: 1px solid rgba(140, 210, 255, 0.18);
-  background: rgba(4, 8, 14, 0.78);
-  color: var(--dim);
-  font: 10px/1.7 var(--mono);
-  letter-spacing: 0.1em;
-  backdrop-filter: blur(10px);
-}
