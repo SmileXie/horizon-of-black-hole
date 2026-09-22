@@ -16,7 +16,6 @@ precision highp float;
 varying vec2 vNdc;
 
 uniform float uTime;
-uniform float uGravityStrength;
 uniform float uDiskInner;
 uniform float uDiskOuter;
 uniform int uMaxSteps;
@@ -104,7 +103,7 @@ void main() {
   vec3 position = uCameraPosition;
   vec3 velocity = rayDirection;
   vec3 angularMomentum = cross(position, velocity);
-  float angularMomentumSquared = dot(angularMomentum, angularMomentum) * uGravityStrength;
+  float angularMomentumSquared = dot(angularMomentum, angularMomentum);
 
   vec3 accumulated = vec3(0.0);
   float transmittance = 1.0;
@@ -168,7 +167,6 @@ void main() {
 export function createBlackHoleShaderUniforms() {
   return {
     uTime: { value: 0 },
-    uGravityStrength: { value: 1 },
     uDiskInner: { value: 6 },
     uDiskOuter: { value: 24 },
     uMaxSteps: { value: 64 },

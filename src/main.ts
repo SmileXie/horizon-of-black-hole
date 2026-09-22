@@ -58,7 +58,6 @@ try {
       quality = nextQuality;
       scene.setQuality(getQuality(nextQuality));
     },
-    onGravityToggle: (enabled) => scene.setGravityStrength(enabled ? 1 : 0),
     onDebugToggle: () => {
       debug = experimentManager.debugEnabled;
     },
@@ -72,11 +71,10 @@ try {
   );
 
   experimentManager.setQuality(initialQuality);
-  experimentManager.setGravity(true);
 
   const hint = document.createElement("div");
   hint.className = "hint";
-  hint.innerHTML = `CLICK TO FLY · W A S D MOVE · Q E VERTICAL · WHEEL SPEED · G LIGHT EXPERIMENT · F1 DIAGNOSTIC`;
+  hint.innerHTML = `CLICK TO FLY · W A S D MOVE · Q E VERTICAL · WHEEL SPEED · F1 DIAGNOSTIC`;
   app.appendChild(hint);
 
   const helpPanel = document.createElement("section");
@@ -89,10 +87,8 @@ try {
     <strong>Q E</strong> to descend or climb, and the mouse to look. The mouse wheel scales
     flight speed. Modes are <strong>1 Cruise</strong>, <strong>2 Approach</strong>, and
     <strong>3 Precision</strong>.</p>
-    <h2>Experiments</h2>
-    <p><strong>G</strong> toggles spacetime curvature. With gravity off, light follows
-    straight rays; turning it back on restores lensing, the shadow, and photon-ring structure.
-    Press <strong>F1</strong> for diagnostics and <strong>R</strong> to reset the camera.</p>
+    <h2>Diagnostics</h2>
+    <p>Press <strong>F1</strong> for diagnostics and <strong>R</strong> to reset the camera.</p>
     <h2>Scientific note</h2>
     <p>The ray tracer uses Schwarzschild null-geodesic integration in gravitational-radius units.
     Proper-time readout applies a simplified static-observer comparison; it does not model the

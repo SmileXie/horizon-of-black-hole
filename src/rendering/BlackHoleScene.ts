@@ -86,10 +86,6 @@ export class BlackHoleScene {
     this.resize(this.width, this.height);
   }
 
-  setGravityStrength(strength: number) {
-    this.material.uniforms.uGravityStrength.value = strength;
-  }
-
   setTime(time: number) {
     this.material.uniforms.uTime.value = time;
   }

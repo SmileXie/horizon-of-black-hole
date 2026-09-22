@@ -34,7 +34,6 @@ npm run preview
 | Look | Mouse while pointer-locked |
 | Flight speed | Mouse wheel |
 | Cruise / Approach / Precision | `1` / `2` / `3` |
-| Toggle gravity experiment | `G` |
 | Diagnostic HUD | `F1` |
 | Help | `H` |
 | Reset view | `R` |
@@ -93,14 +92,3 @@ For the readout, proper time is advanced using a simplified static-observer
 factor at the camera's current radius. This communicates gravitational time
 dilation, but it is not a full freely falling worldline calculation and does not
 model the flight path's velocity, acceleration, or exact relativistic motion.
-
-### 5. Gravity on/off light experiment
-
-Massive objects curve spacetime, and light follows the curved paths through it.
-This is why the black hole can act like a lens, bending background starlight and
-light from the disk around the horizon.
-
-Pressing `G` toggles gravitational curvature. With gravity off, rays continue
-nearly straight, so lensing, the shadow boundary, and photon-ring structure lose
-their relativistic appearance. With gravity on, the same viewpoint integrates
-curved photon paths, making the comparison directly visible.

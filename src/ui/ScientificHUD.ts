@@ -58,7 +58,6 @@ export class ScientificHUD {
           <button data-quality="ULTRA">ULTRA</button>
         </div>
         <div class="control-row">
-          <button data-gravity class="active">GRAVITY ON</button>
           <button data-debug>DEBUG F1</button>
           <button data-reset>RESET R</button>
           <button data-help>HELP H</button>
