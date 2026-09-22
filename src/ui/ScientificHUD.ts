@@ -7,7 +7,6 @@ export interface HudReadout {
   spin: number;
   coordinateTime: number;
   properTime: number;
-  flightMode: string;
   quality: QualityLevel;
   fps: number;
   raySteps: number;
@@ -22,7 +21,6 @@ export class ScientificHUD {
   private readonly spin: HTMLElement;
   private readonly coordinate: HTMLElement;
   private readonly proper: HTMLElement;
-  private readonly mode: HTMLElement;
   private readonly quality: HTMLElement;
   private readonly debugPanel: HTMLElement;
   private readonly fps: HTMLElement;
@@ -48,7 +46,6 @@ export class ScientificHUD {
       <section class="controls" aria-label="Navigation and experiments">
         <small>Navigation</small>
         <div class="hud-grid">
-          <div class="hud-item"><small>Mode</small><strong id="hud-mode">--</strong></div>
           <div class="hud-item"><small>Quality</small><strong id="hud-quality">--</strong></div>
         </div>
         <div class="control-row">
@@ -76,7 +73,6 @@ export class ScientificHUD {
     this.spin = this.require("#hud-spin");
     this.coordinate = this.require("#hud-coordinate");
     this.proper = this.require("#hud-proper");
-    this.mode = this.require("#hud-mode");
     this.quality = this.require("#hud-quality");
     this.debugPanel = this.require("#debug-panel");
     this.fps = this.require("#hud-fps");
@@ -94,7 +90,6 @@ export class ScientificHUD {
     this.spin.textContent = readout.spin.toFixed(3);
     this.coordinate.textContent = formatTime(readout.coordinateTime);
     this.proper.textContent = formatTime(readout.properTime);
-    this.mode.textContent = readout.flightMode;
     this.quality.textContent = readout.quality;
 
     this.debugPanel.hidden = !readout.debug;

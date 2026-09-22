@@ -65,7 +65,6 @@ try {
   });
 
   const navigation = new Navigation(
-    explorer,
     resetExperience,
     () => helpPanel.classList.toggle("open"),
   );
@@ -85,8 +84,7 @@ try {
     <h2>Navigation</h2>
     <p>Click the universe to enter flight mode. Use <strong>W A S D</strong> to translate,
     <strong>Q E</strong> to descend or climb, and the mouse to look. The mouse wheel scales
-    flight speed. Modes are <strong>1 Cruise</strong>, <strong>2 Approach</strong>, and
-    <strong>3 Precision</strong>.</p>
+    flight speed.</p>
     <h2>Diagnostics</h2>
     <p>Press <strong>F1</strong> for diagnostics and <strong>R</strong> to reset the camera.</p>
     <h2>Scientific note</h2>
@@ -146,7 +144,6 @@ try {
       spin: state.spin,
       coordinateTime: state.coordinateTime,
       properTime: state.properTime,
-      flightMode: explorer.flightMode,
       quality,
       fps,
       raySteps: getQuality(quality).raySteps,

@@ -1,14 +1,8 @@
 import { Euler, PerspectiveCamera, Vector3 } from "three";
 
-export type FlightMode = "CRUISE" | "APPROACH" | "PRECISION";
-
 const LIGHT_SPEED_VISUAL_SCALE = 38;
 const MAX_NAVIGATION_SPEED = 37;
-const MODE_SPEEDS: Record<FlightMode, number> = {
-  CRUISE: 12,
-  APPROACH: 5,
-  PRECISION: 1.6,
-};
+const APPROACH_SPEED = 5;
 
 export function clampNavigationSpeed(speed: number) {
   return Math.min(speed, MAX_NAVIGATION_SPEED);
@@ -18,7 +12,6 @@ export class ExplorerCamera {
   readonly camera: PerspectiveCamera;
   readonly canvas: HTMLCanvasElement;
 
-  flightMode: FlightMode = "APPROACH";
   speedMultiplier = 1;
   velocity = new Vector3();
   pointerLocked = false;
@@ -49,16 +42,11 @@ export class ExplorerCamera {
   }
 
   get baseSpeed() {
-    return clampNavigationSpeed(MODE_SPEEDS[this.flightMode] * this.speedMultiplier);
+    return clampNavigationSpeed(APPROACH_SPEED * this.speedMultiplier);
   }
 
   get speedAsFractionOfC() {
     return this.velocity.length() / LIGHT_SPEED_VISUAL_SCALE;
-  }
-
-  setFlightMode(mode: FlightMode) {
-    this.flightMode = mode;
-    this.emit("flightmodechange", { mode });
   }
 
   reset(initialPosition: Vector3) {
@@ -128,9 +116,6 @@ export class ExplorerCamera {
         this.keys.add(event.code);
       }
 
-      if (event.code === "Digit1") this.setFlightMode("CRUISE");
-      if (event.code === "Digit2") this.setFlightMode("APPROACH");
-      if (event.code === "Digit3") this.setFlightMode("PRECISION");
     }, options);
 
     window.addEventListener("keyup", (event) => {

@@ -1,10 +1,7 @@
-import type { ExplorerCamera, FlightMode } from "../camera/ExplorerCamera";
-
 export class Navigation {
   private abortController = new AbortController();
 
   constructor(
-    private readonly camera: ExplorerCamera,
     private readonly onReset: () => void,
     private readonly onToggleHelp: () => void,
   ) {
@@ -15,14 +12,6 @@ export class Navigation {
       if (event.code === "KeyH") this.onToggleHelp();
     }, options);
 
-    window.addEventListener("flightmodechange", (event) => {
-      const detail = (event as CustomEvent<{ mode: FlightMode }>).detail;
-      window.dispatchEvent(new CustomEvent("navigationstate", { detail: { ...detail } }));
-    }, options);
-  }
-
-  get mode(): FlightMode {
-    return this.camera.flightMode;
   }
 
   dispose() {
